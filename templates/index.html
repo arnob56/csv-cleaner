@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>CSV Cleaner</title>
+
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='css/style.css') }}"
+    >
+</head>
+
+<body>
+
+    <main class="container">
+
+        <section class="hero">
+
+            <h1>CSV Cleaner</h1>
+
+            <p>
+                Analyze and clean your dataset before using it
+                for research or analysis.
+            </p>
+
+            <form
+                action="{{ url_for('upload') }}"
+                method="POST"
+                enctype="multipart/form-data"
+                class="upload-form"
+            >
+
+                <label for="file" class="file-label">
+                    Select CSV File
+                </label>
+
+                <input
+                    type="file"
+                    id="file"
+                    name="file"
+                    accept=".csv"
+                    required
+                >
+
+                <button type="submit">
+                    Analyze Dataset
+                </button>
+
+            </form>
+
+            {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                    <div class="messages">
+                        {% for message in messages %}
+                            <p>{{ message }}</p>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            {% endwith %}
+
+            <div class="supported">
+                Maximum file size: 50 MB · CSV only
+            </div>
+
+        </section>
+
+    </main>
+
+</body>
+
+</html>
