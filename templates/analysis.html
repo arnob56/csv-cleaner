@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Dataset Analysis - CSV Cleaner</title>
+
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='css/style.css') }}"
+    >
+</head>
+
+<body>
+
+    <main class="container">
+
+        <header class="page-header">
+
+            <div>
+                <h1>Dataset Analysis</h1>
+                <p>{{ analysis.filename }}</p>
+            </div>
+
+            <a href="{{ url_for('index') }}" class="secondary-button">
+                Upload Another
+            </a>
+
+        </header>
+
+
+        <section class="stats">
+
+            <div class="stat-card">
+                <span>Rows</span>
+                <strong>{{ "{:,}".format(analysis.rows) }}</strong>
+            </div>
+
+            <div class="stat-card">
+                <span>Columns</span>
+                <strong>{{ analysis.columns }}</strong>
+            </div>
+
+            <div class="stat-card">
+                <span>Missing Cells</span>
+                <strong>{{ "{:,}".format(analysis.missing_cells) }}</strong>
+            </div>
+
+            <div class="stat-card">
+                <span>Duplicate Rows</span>
+                <strong>{{ "{:,}".format(analysis.duplicate_rows) }}</strong>
+            </div>
+
+            <div class="stat-card">
+                <span>Empty Columns</span>
+                <strong>{{ analysis.empty_columns }}</strong>
+            </div>
+
+        </section>
+
+
+        <section class="panel">
+
+            <div class="panel-header">
+                <h2>Column Analysis</h2>
+            </div>
+
+            <div class="table-wrapper">
+
+                <table>
+
+                    <thead>
+                        <tr>
+                            <th>Column</th>
+                            <th>Data Type</th>
+                            <th>Missing</th>
+                            <th>Unique Values</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+
+                        {% for column in analysis.column_data %}
+
+                        <tr>
+
+                            <td>
+                                {{ column.name }}
+                            </td>
+
+                            <td>
+                                <span class="type-badge">
+                                    {{ column.dtype }}
+                                </span>
+                            </td>
+
+                            <td>
+                                {{ "{:,}".format(column.missing) }}
+                            </td>
+
+                            <td>
+                                {{ "{:,}".format(column.unique) }}
+                            </td>
+
+                        </tr>
+
+                        {% endfor %}
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </section>
+
+    </main>
+
+</body>
+
+</html>
